@@ -1,0 +1,91 @@
+# Unity가 다시 만드는 캐시와 로컬 설정
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/.utmp/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+/UIElementsSchema/
+
+# 실행 파일, 시연 캡처, 로컬 검증 결과 (검증 C# 소스는 포함)
+/[Bb]uild/
+/[Bb]uilds/
+/Captures/
+/QA/
+*.log
+*.tmp
+sysinfo.txt
+mono_crash.*
+*.apk
+*.aab
+
+# IDE 자동 생성 파일
+/.vs/
+/.vscode/
+/.idea/
+/.vsconfig
+/.gradle/
+/ExportedObj/
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.DotSettings.user
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+.DS_Store
+Thumbs.db
+
+# 이 PC의 Codex/MCP 자동 연결용 코드와 설정
+/.codex/
+/.agents/
+/.mcp.json
+/Assets/Editor/MiniTwinMcpBootstrap.cs
+/Assets/Editor/MiniTwinMcpBootstrap.cs.meta
+/Assets/Editor/MiniTwinMcpConnect.cs
+/Assets/Editor/MiniTwinMcpConnect.cs.meta
+# 현재 Assets/Editor에는 위 로컬 연결 스크립트만 있음
+/Assets/Editor.meta
+
+# Unity 기본 템플릿의 안내 화면과 제작자 로컬 레이아웃
+/Assets/TutorialInfo/
+/Assets/TutorialInfo.meta
+/Assets/Readme.asset
+/Assets/Readme.asset.meta
+
+# 이전 Windows 폰트가 다시 복사되어도 공개 대상에서 제외.
+# 현재 사용하는 Noto Sans KR와 OFL 라이선스는 포함.
+/Assets/MiniTwin/Fonts/Malgun.ttf
+/Assets/MiniTwin/Fonts/Malgun.ttf.meta
+
+# 인증 정보·서명 키
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.p12
+*.pfx
+credentials.json
+service-account*.json
+
+# Unity 생성 에셋만 제외. 일반 .meta, XR 설정, 샘플, 패키지 lock은 유지.
+/Assets/Plugins/Editor/JetBrains*
+/Assets/SceneDependencyCache*
+/Assets/InitTestScene*.unity*
+/Assets/Addressables_Temp*
+/Assets/AddressableAssetsData/link.xml*
+/Assets/Unity.VisualScripting.Generated/
+*.blend1
+*.blend1.meta
