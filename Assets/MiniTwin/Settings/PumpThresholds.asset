@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68540f309e70aca4fac0735dd39c2d73, type: 3}
+  m_Name: PumpThresholds
+  m_EditorClassIdentifier: Assembly-CSharp::MiniTwin.PumpThresholds
+  tempMin: 40
+  tempWarning: 70
+  tempDanger: 85
+  vibrationWarning: 2.8
+  vibrationDanger: 7.1
+  pressureDanger: 2.5
+  pressureNormal: 3
+  pressureMax: 4.5
+  flowDanger: 35
+  flowNormal: 45
+  flowMax: 55
+  staleSeconds: 3
