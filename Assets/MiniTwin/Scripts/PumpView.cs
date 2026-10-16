@@ -55,13 +55,15 @@ namespace MiniTwin
             Material material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
             material.color = color; material.SetFloat("_Smoothness", .55f); material.SetFloat("_Metallic", .55f);
             renderer.sharedMaterial = material; parts[id] = renderer;
-            if (id == "Motor" || id == "Fan" || id == "Bearing" || id == "Impeller" || id == "Pipe")
+            // 모터 방열판도 모터의 선택 영역으로 취급합니다.
+            string selectionId = id.StartsWith("Fin") ? "Motor" : id;
+            if (selectionId == "Motor" || selectionId == "Fan" || selectionId == "Bearing" || selectionId == "Impeller" || selectionId == "Pipe")
             {
-                var selection = obj.AddComponent<PumpPart>(); selection.id = id; selection.view = this;
+                var selection = obj.AddComponent<PumpPart>(); selection.id = selectionId; selection.view = this;
                 if (xrInteractions)
                 {
                     var interactable = obj.AddComponent<XRSimpleInteractable>();
-                    interactable.selectEntered.AddListener(_ => SelectPart(id));
+                    interactable.selectEntered.AddListener(_ => SelectPart(selectionId));
                 }
             }
             return renderer;
