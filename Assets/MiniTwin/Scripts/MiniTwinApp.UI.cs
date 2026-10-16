@@ -315,7 +315,40 @@ namespace MiniTwin
             var note=TextAt(dialog,"수집 시각  "+DateTimeOffset.Parse(Core.Current.timestamp).ToString("yyyy.MM.dd HH:mm:ss")+"\n가상 센서 기반 시뮬레이션 · 경계값은 데모 설정",CaptionSize,Padding,464,DialogWidth-2*Padding,80,uiSub);note.alignment=TextAnchor.UpperLeft;
         }
         private void OpenRecords()
-        {if(Core.LastSavedPath!=null)Application.OpenURL(new Uri(System.IO.Path.GetDirectoryName(Core.LastSavedPath)).AbsoluteUri);}
+        {
+            if(Core.LastSavedPath==null)return;
+            try
+            {
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+                string folder=GetRecordsFolder(Core.LastSavedPath);
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo {
+                    FileName="explorer.exe", Arguments="\""+folder+"\"", UseShellExecute=true
+                });
+#else
+                Application.OpenURL(new Uri(System.IO.Path.GetDirectoryName(Core.LastSavedPath)).AbsoluteUri);
+#endif
+            }
+            catch(Exception e){Debug.LogError("훈련 기록 폴더 열기 실패: "+e.Message);}
+        }
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+        // 경로가 리디렉션된 실행 환경에서도 탐색기는 실제 저장 위치를 열어야 합니다.
+        private static string GetRecordsFolder(string savedPath)
+        {
+            using(var file=System.IO.File.Open(savedPath,System.IO.FileMode.Open,System.IO.FileAccess.Read,System.IO.FileShare.ReadWrite))
+            {
+                var path=new System.Text.StringBuilder(32768);
+                uint length=GetFinalPathNameByHandleW(file.SafeFileHandle,path,(uint)path.Capacity,0);
+                if(length==0)throw new System.ComponentModel.Win32Exception(System.Runtime.InteropServices.Marshal.GetLastWin32Error());
+                if(length>=path.Capacity)throw new System.IO.PathTooLongException();
+                string resolved=path.ToString();
+                if(resolved.StartsWith(@"\\?\UNC\",StringComparison.OrdinalIgnoreCase))resolved=@"\\"+resolved.Substring(8);
+                else if(resolved.StartsWith(@"\\?\",StringComparison.Ordinal))resolved=resolved.Substring(4);
+                return System.IO.Path.GetDirectoryName(resolved);
+            }
+        }
+        [System.Runtime.InteropServices.DllImport("kernel32.dll",CharSet=System.Runtime.InteropServices.CharSet.Unicode,SetLastError=true,ExactSpelling=true)]
+        private static extern uint GetFinalPathNameByHandleW(Microsoft.Win32.SafeHandles.SafeFileHandle file,System.Text.StringBuilder path,uint capacity,uint flags);
+#endif
         private void ShowErrors()
         {
             if(Core.Result==null||Core.Result.mistakes.Count==0)return;
